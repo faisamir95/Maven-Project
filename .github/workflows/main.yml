@@ -36,8 +36,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}  
       - name: Docker push
         run: |
-          docker tag myimage:${{ GITHUB.RUN_NUMBER}} faisamir95/intel5:${{ GITHUB.RUN_NUMBER }}
-          docker tag myimage:${{ GITHUB.RUN_NUMBER}} faisamir95/intel5:latest
+          docker tag newimage:${{ GITHUB.RUN_NUMBER}} faisamir95/intel5:${{ GITHUB.RUN_NUMBER }}
+          docker tag newimage:${{ GITHUB.RUN_NUMBER}} faisamir95/intel5:latest
           docker push faisamir95/intel5:latest
           docker push faisamir95/intel5:${{ GITHUB.RUN_NUMBER}}
 
