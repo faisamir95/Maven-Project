@@ -25,3 +25,8 @@ jobs:
         uses: docker/setup-qemu-action@v3  
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      - name: Create docker image and container
+        run: |
+           docker build -t newimage:v1
+           docker images
+           docker run -dt --name c1 --hostname c1 newimage:v1
