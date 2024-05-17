@@ -45,14 +45,14 @@ jobs:
           docker push faisamir95/intel5:${{ GITHUB.RUN_NUMBER}}
 
   test:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Set up QEMU
-          uses: docker/setup-qemu-action@v3  
-        - name: Set up Docker Buildx
-          uses: docker/setup-buildx-action@v3
-        - name: Docker creation docker container
-          run: |
-            docker run -dt --name c1 --hostname c1 newimage:${{ GITHUB.RUN_NUMBER }}
-            docker ps -a
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3  
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Docker creation docker container
+        run: |
+          docker run -dt --name c1 --hostname c1 newimage:${{ GITHUB.RUN_NUMBER }}
+          docker ps -a
            
