@@ -27,9 +27,32 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Create docker image
         run: |
-           docker build . --file Dockerfile -t newimage:${{ GITHUB.RUN_NUMBER }}
-           docker images
+          docker build . --file Dockerfile -t newimage:${{ GITHUB.RUN_NUMBER }}
+          docker images
       - name: Create docker container
         run: |
-           docker run -dt --name c1 --hostname c1 newimage:${{ GITHUB.RUN_NUMBER }}
-           docker ps -a
+          docker run -dt --name c1 --hostname c1 newimage:${{ GITHUB.RUN_NUMBER }}
+          docker ps -a
+      - name: Login to Docker Hub
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Login to Docker Hub
+        run: |
+          docker tag myimage:${{ GITHUB.RUN_NUMBER}} faisamir95/intel5:${{ GITHUB.RUN_NUMBER }}
+          docker tag myimage:${{ GITHUB.RUN_NUMBER}} faisamir95/intel5:latest
+          docker push faisamir95/intel5:latest
+          docker push faisamir95/intel5:${{ GITHUB.RUN_NUMBER}}
+
+  test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Set up QEMU
+          uses: docker/setup-qemu-action@v3  
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+        - name: Docker creation docker container
+          run: |
+            docker run -dt --name c1 --hostname c1 newimage:${{ GITHUB.RUN_NUMBER }}
+            docker ps -a
+           
