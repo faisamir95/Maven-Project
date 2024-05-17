@@ -29,5 +29,5 @@ jobs:
         run: |
            docker build . --file Dockerfile -t newimage:v1
            docker images
-           docker ps -a
            docker run -dt --name c1 --hostname c1 newimage:v1
+           docker ps -a
